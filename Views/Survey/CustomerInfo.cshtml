@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_Layout_Start_Survey";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 d-flex flex-column align-items-center justify-content-center">
+        <div class="card mb-2">
+            <div class="card-body" style="border-top: 8px solid #0d6efd; border-radius:8px">
+                <h5 class="card-title">Basic Detail</h5>
+
+                <!-- Vertical Form -->
+                <form class="row g-3">
+                    <div class="col-6">
+                        <label for="inputNanme4" class="form-label">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="inputNanme4">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputEmail4" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="inputEmail4">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputPassword4" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="inputPassword4">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputAddress" class="form-label">Age <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="inputAddress">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputAddress" class="form-label">Gender <span class="text-danger">*</span></label>
+                        <select class="form-control">
+                            <option value=""> --Select-- </option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Trangender</option>
+                            <option value="4">Not to say</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <a asp-controller="Survey" asp-action="StartSurvey" class="btn btn-primary">Start Survey</a>
+                        @* <button type="reset" class="btn btn-secondary">Reset</button> *@
+                    </div>
+                </form><!-- Vertical Form -->
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

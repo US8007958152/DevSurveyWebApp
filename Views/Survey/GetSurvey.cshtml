@@ -1,0 +1,75 @@
+﻿
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">All Survey</h5>
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodySurvey">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Brandon Jacob</td>
+                            <td>Designer</td>
+                            <td>Designer</td>
+                            <td>28/10/2025</td>
+                            <td>28/10/2025</td>
+                            <td><span class="text-success">Active</span></td>
+                            <td><a asp-controller="Survey" asp-action="CustomerInfo">Start</a></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Brandon Jacob</td>
+                            <td>Designer</td>
+                            <td>Designer</td>
+                            <td>28/10/2025</td>
+                            <td>28/10/2025</td>
+                            <td><span class="text-danger">InActive</span></td>
+                            <td><a href="#">Start</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#tbodySurvey").html('');
+            $.ajax({
+                method: "GET",
+                url: "/Survey/GetSurveys",
+                success: function (response) {
+                    var tbody = '';
+                    $.each(response, function (index, row) {
+                        tbody += '<tr><td>' + row.id + '</td><td>' + row.title + '</td><td>' + row.category + '</td><td>' + row.description + '</td><td>' + row.startDate + '</td><td>' + row.endDate + '</td><td>' + (row.isActive ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>') + '</td><td><a href="/Survey/CustomerInfo">Start</a></td></tr>';
+                    });
+                    $("#tbodySurvey").html(tbody);
+                },
+                complete: function (error) {
+
+                },
+                error: function () {
+
+                }
+            })
+        })
+    </script>
+}

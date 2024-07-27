@@ -6,5 +6,7 @@ namespace SurveyWebApp.BusinessLogicLayer
     {
          SurveyDetails GetSurveyDetails(int surveyId);
          IEnumerable<SurveyViewModel> GetSurveys();
+
+        int SaveCustomerDetail(CustomerDetail customerDetail);
     }
 }

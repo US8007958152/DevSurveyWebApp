@@ -10,24 +10,28 @@
                 <!-- Vertical Form -->
                 <form class="row g-3">
                     <div class="col-6">
-                        <label for="inputNanme4" class="form-label">Full Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="inputNanme4">
+                        <label for="txtFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtFirstName">
                     </div>
                     <div class="col-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        <label for="txtLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtLastName">
                     </div>
                     <div class="col-6">
-                        <label for="inputPassword4" class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="inputPassword4">
+                        <label for="txtEmailId" class="form-label">Email Id</label>
+                        <input type="email" class="form-control" id="txtEmailId">
                     </div>
                     <div class="col-6">
-                        <label for="inputAddress" class="form-label">Age <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="inputAddress">
+                        <label for="txtMobileNumber" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="txtMobileNumber">
                     </div>
                     <div class="col-6">
-                        <label for="inputAddress" class="form-label">Gender <span class="text-danger">*</span></label>
-                        <select class="form-control">
+                        <label for="txtAge" class="form-label">Age <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="txtAge">
+                    </div>
+                    <div class="col-6">
+                        <label for="ddlGender" class="form-label">Gender <span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlGender">
                             <option value=""> --Select-- </option>
                             <option value="1">Male</option>
                             <option value="2">Female</option>
@@ -36,7 +40,7 @@
                         </select>
                     </div>
                     <div class="text-center">
-                        <a asp-controller="Survey" asp-action="StartSurvey" class="btn btn-primary">Start Survey</a>
+                        <button type="button" id="btnStartSurvey" class="btn btn-primary">Start Survey</button>
                         @* <button type="reset" class="btn btn-secondary">Reset</button> *@
                     </div>
                 </form><!-- Vertical Form -->
@@ -47,3 +51,73 @@
 
     </div>
 </div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnStartSurvey").click(function () {
+                if ($("#txtFirstName").val() == '' || $("#txtFirstName").val() === undefined) {
+                    $("#txtFirstName").css('border-color', '#dc3545');
+                    return false;
+                }
+                else
+                    $("#txtFirstName").css('border-color', '#dee2e6');
+                    
+                if ($("#txtLastName").val() == '' || $("#txtLastName").val() === undefined) {
+                    $("#txtLastName").css('border-color', '#dc3545');
+                    return false;
+                }
+                else
+                    $("#txtLastName").css('border-color', '#dee2e6');
+                // if ($("#txtEmailId").val() == '' || $("#txtEmailId").val() === undefined) {
+                //     $("#txtEmailId").css('border-color', '#dc3545');
+                //     return false;
+                // }
+                // else
+                //     $("#txtEmailId").css('border-color', '#dee2e6');
+                if ($("#txtMobileNumber").val() == '' || $("#txtMobileNumber").val() === undefined) {
+                    $("#txtMobileNumber").css('border-color', '#dc3545');
+                    return false;
+                }
+                else
+                    $("#txtMobileNumber").css('border-color', '#dee2e6');
+                if ($("#txtAge").val() == '' || $("#txtAge").val() === undefined) {
+                    $("#txtAge").css('border-color', '#dc3545');
+                    return false;
+                }
+                else
+                    $("#txtAge").css('border-color', '#dee2e6');
+                if ($("#ddlGender").val() == '' || $("#ddlGender").val() === undefined) {
+                    $("#ddlGender").css('border-color', '#dc3545');
+                    return false;
+                }
+                else
+                    $("#ddlGender").css('border-color', '#dee2e6');
+                var customerDetail = {
+                    "FirstName": $("#txtFirstName").val(),
+                    "LastName": $("#txtLastName").val(),
+                    "EmailId": $("#txtEmailId").val(),
+                    "MobileNumber": $("#txtMobileNumber").val(),
+                    "Age": $("#txtAge").val(),
+                    "Gender": $("#ddlGender").val()
+                };
+               
+                $.ajax({
+                    method: "POST",
+                    url: "/Survey/StartSurvey",
+                    data: { "customerDetail": customerDetail },
+                    dataType: "json",
+                    // contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        
+                    },
+                    complete: function (error) {
+
+                    },
+                    error: function () {
+
+                    }
+                })
+            });           
+        })
+    </script>
+}

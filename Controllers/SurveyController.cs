@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SurveyWebApp.BusinessLogicLayer;
 using SurveyWebApp.Domain.Survey;
+using SurveyWebApp.Models;
 
 namespace SurveyWebApp.Controllers
 {
@@ -16,12 +17,37 @@ namespace SurveyWebApp.Controllers
         {
             return View();
         }
-        public IActionResult StartSurvey()
+        [HttpPost]
+        public IActionResult StartSurvey(CustomerDetailViewModel customerDetail)
         {
-            return View();
+            try
+            {
+                if (customerDetail == null)
+                {
+                    return BadRequest("Invalid request payload");
+                }
+                CustomerDetail customer = new CustomerDetail
+                {
+                    FirstName = customerDetail.FirstName,
+                    LastName = customerDetail.LastName,
+                    EmailId = customerDetail.EmailId,
+                    Age = customerDetail.Age,
+                    Gender = customerDetail.Gender,
+                    MobileNumber = customerDetail.MobileNumber
+                };
+                int customerId = _survey.SaveCustomerDetail(customer);
+                return Ok(new { status = true, customerId = customerId });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to start {ex.Message}");
+            }           
         }
-        public IActionResult CustomerInfo()
+        public IActionResult CustomerInfo(int surveyId)
         {
+            ViewBag.SurveyId = surveyId;   
+          
+            //HttpContext.Session.SetInt32("SurveyId", surveyId);
             return View();
         }
         [HttpGet]

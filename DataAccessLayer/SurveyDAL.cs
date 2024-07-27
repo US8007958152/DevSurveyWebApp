@@ -34,5 +34,31 @@ namespace SurveyWebApp.DataAccessLayer
                 return surveys;
             }
         }
+
+        public int SaveCustomerDetail(CustomerDetail customerDetail)
+        {
+            string procedureName = "[sSurvey].[spSaveCustomerDetail]";
+            using (IDbConnection con = new SqlConnection(_connString))
+            {
+                DateTime? dateOfBirth = (DateTime.MinValue == customerDetail.DOB ? null : customerDetail.DOB);
+                //Set up DynamicParameters object to pass parameters  
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@FirstName", customerDetail.FirstName);
+                parameters.Add("@LastName", customerDetail.LastName);
+                parameters.Add("@EmailId", customerDetail.EmailId);
+                parameters.Add("@MobileNumber", customerDetail.MobileNumber);
+                parameters.Add("@AadharNumber", customerDetail.AadharNumber);
+                parameters.Add("@VoterId", customerDetail.VoterId);
+                parameters.Add("@Gender", customerDetail.Gender);
+                parameters.Add("@DOB", dateOfBirth);
+                parameters.Add("@AgeGroupId", customerDetail.AgeGroupId);
+                parameters.Add("@Address", customerDetail.Address);
+                parameters.Add("@City", customerDetail.City);
+                parameters.Add("@State", customerDetail.State);
+                parameters.Add("@LocationId", customerDetail.LocationId);
+                int surverId = con.Query<int>(procedureName, parameters,commandType: CommandType.StoredProcedure).First();
+                return surverId;
+            }
+        }
     }
 }

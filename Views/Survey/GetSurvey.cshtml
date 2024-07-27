@@ -59,7 +59,7 @@
                 success: function (response) {
                     var tbody = '';
                     $.each(response, function (index, row) {
-                        tbody += '<tr><td>' + row.id + '</td><td>' + row.title + '</td><td>' + row.category + '</td><td>' + row.description + '</td><td>' + row.startDate + '</td><td>' + row.endDate + '</td><td>' + (row.isActive ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>') + '</td><td><a href="/Survey/CustomerInfo">Start</a></td></tr>';
+                        tbody += '<tr><td>' + row.id + '</td><td>' + row.title + '</td><td>' + row.category + '</td><td>' + row.description + '</td><td>' + row.startDate + '</td><td>' + row.endDate + '</td><td>' + (row.isActive ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>') + '</td><td>' + (row.isActive ? '<a href="/Survey/CustomerInfo?surveyId='+row.id+'">Start</a>' : 'Start') + '</td></tr>';
                     });
                     $("#tbodySurvey").html(tbody);
                 },

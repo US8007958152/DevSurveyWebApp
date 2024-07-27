@@ -1,12 +1,33 @@
-
-CREATE DATABASE [SurveyDB] 
+USE [master]
 GO
+/****** Object:  Database [SurveyDB]    Script Date: 27/07/2024 4:42:51 pm ******/
+CREATE DATABASE [SurveyDB]
+ GO
 USE [SurveyDB]
 GO
-/****** Object:  Schema [sSurvey]    Script Date: 26/07/2024 11:46:25 pm ******/
+/****** Object:  Schema [sSurvey]    Script Date: 27/07/2024 4:42:51 pm ******/
 CREATE SCHEMA [sSurvey]
 GO
-/****** Object:  Table [sSurvey].[tCategory]    Script Date: 26/07/2024 11:46:25 pm ******/
+/****** Object:  Table [sSurvey].[tAgeGroupMaster]    Script Date: 27/07/2024 4:42:51 pm ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [sSurvey].[tAgeGroupMaster](
+	[Id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](50) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[CreatedBY] [varchar](100) NOT NULL,
+	[UpdateDate] [datetime] NULL,
+	[UpdatedBy] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [sSurvey].[tCategory]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -25,7 +46,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tCustomerDetail]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tCustomerDetail]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,20 +59,21 @@ CREATE TABLE [sSurvey].[tCustomerDetail](
 	[MobileNumber] [nvarchar](15) NOT NULL,
 	[AadharNumber] [bigint] NULL,
 	[VoterId] [nvarchar](20) NULL,
-	[Gender] [int] NOT NULL,
+	[Gender] [tinyint] NOT NULL,
 	[DOB] [date] NULL,
-	[AgeGroupId] [int] NOT NULL,
+	[AgeGroupId] [tinyint] NULL,
 	[Address] [nvarchar](500) NULL,
 	[City] [nvarchar](500) NULL,
 	[State] [nvarchar](500) NULL,
 	[LocationId] [nvarchar](200) NULL,
+	[CreatedDate] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tCustomerRespondent]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tCustomerRespondent]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -70,7 +92,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tMaster]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tMaster]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,7 +115,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tOptionMaster]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tOptionMaster]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -115,7 +137,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tQuestion]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tQuestion]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +161,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tQuestionType]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tQuestionType]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -158,7 +180,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sSurvey].[tStartQuestionMap]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Table [sSurvey].[tStartQuestionMap]    Script Date: 27/07/2024 4:42:51 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -173,6 +195,22 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+SET IDENTITY_INSERT [sSurvey].[tAgeGroupMaster] ON 
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (1, N'18 to 24', 1, CAST(N'2024-07-27T16:28:38.107' AS DateTime), N'US1001', NULL, NULL)
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (2, N'25 to 34', 1, CAST(N'2024-07-27T16:28:38.183' AS DateTime), N'US1001', NULL, NULL)
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (3, N'35 to 44', 1, CAST(N'2024-07-27T16:28:38.183' AS DateTime), N'US1001', NULL, NULL)
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (4, N'45 to 54', 1, CAST(N'2024-07-27T16:28:38.187' AS DateTime), N'US1001', NULL, NULL)
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (5, N'55 to 64', 1, CAST(N'2024-07-27T16:28:38.187' AS DateTime), N'US1001', NULL, NULL)
+GO
+INSERT [sSurvey].[tAgeGroupMaster] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (6, N'65 or over', 1, CAST(N'2024-07-27T16:28:38.187' AS DateTime), N'US1001', NULL, NULL)
+GO
+SET IDENTITY_INSERT [sSurvey].[tAgeGroupMaster] OFF
+GO
 SET IDENTITY_INSERT [sSurvey].[tCategory] ON 
 GO
 INSERT [sSurvey].[tCategory] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (4, N'HealthCare', 1, CAST(N'2024-07-26T22:48:50.887' AS DateTime), N'US1001', NULL, NULL)
@@ -182,6 +220,14 @@ GO
 INSERT [sSurvey].[tCategory] ([Id], [Title], [IsActive], [CreatedDate], [CreatedBY], [UpdateDate], [UpdatedBy]) VALUES (6, N'Election', 1, CAST(N'2024-07-26T22:48:51.003' AS DateTime), N'US1001', NULL, NULL)
 GO
 SET IDENTITY_INSERT [sSurvey].[tCategory] OFF
+GO
+SET IDENTITY_INSERT [sSurvey].[tCustomerDetail] ON 
+GO
+INSERT [sSurvey].[tCustomerDetail] ([Id], [FirstName], [LastName], [EmailId], [MobileNumber], [AadharNumber], [VoterId], [Gender], [DOB], [AgeGroupId], [Address], [City], [State], [LocationId], [CreatedDate]) VALUES (2, N'Virat', N'Kohli', N'virat@gmail.com', N'8946454', 0, NULL, 3, NULL, 3, NULL, NULL, NULL, NULL, CAST(N'2024-07-27T16:36:33.893' AS DateTime))
+GO
+INSERT [sSurvey].[tCustomerDetail] ([Id], [FirstName], [LastName], [EmailId], [MobileNumber], [AadharNumber], [VoterId], [Gender], [DOB], [AgeGroupId], [Address], [City], [State], [LocationId], [CreatedDate]) VALUES (3, N'Rohit', N'Sharma', N'rohit@gmail.com', N'894645458', 0, NULL, 1, CAST(N'2024-07-27' AS Date), 3, NULL, NULL, NULL, NULL, CAST(N'2024-07-27T16:38:20.120' AS DateTime))
+GO
+SET IDENTITY_INSERT [sSurvey].[tCustomerDetail] OFF
 GO
 SET IDENTITY_INSERT [sSurvey].[tMaster] ON 
 GO
@@ -251,7 +297,7 @@ SET IDENTITY_INSERT [sSurvey].[tQuestionType] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__tCustome__250375B18479BCB2]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Index [UQ__tCustome__250375B10BB8DBBE]    Script Date: 27/07/2024 4:42:51 pm ******/
 ALTER TABLE [sSurvey].[tCustomerDetail] ADD UNIQUE NONCLUSTERED 
 (
 	[MobileNumber] ASC
@@ -259,7 +305,7 @@ ALTER TABLE [sSurvey].[tCustomerDetail] ADD UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__tMaster__2CB664DC817EE379]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Index [UQ__tMaster__2CB664DC817EE379]    Script Date: 27/07/2024 4:42:51 pm ******/
 ALTER TABLE [sSurvey].[tMaster] ADD UNIQUE NONCLUSTERED 
 (
 	[Title] ASC
@@ -267,15 +313,21 @@ ALTER TABLE [sSurvey].[tMaster] ADD UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__tOptionM__2CB664DCD09E5BC5]    Script Date: 26/07/2024 11:46:26 pm ******/
+/****** Object:  Index [UQ__tOptionM__2CB664DCD09E5BC5]    Script Date: 27/07/2024 4:42:51 pm ******/
 ALTER TABLE [sSurvey].[tOptionMaster] ADD UNIQUE NONCLUSTERED 
 (
 	[Title] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
+ALTER TABLE [sSurvey].[tAgeGroupMaster] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [sSurvey].[tAgeGroupMaster] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
 ALTER TABLE [sSurvey].[tCategory] ADD  DEFAULT ((1)) FOR [IsActive]
 GO
 ALTER TABLE [sSurvey].[tCategory] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [sSurvey].[tCustomerDetail] ADD  DEFAULT (getdate()) FOR [CreatedDate]
 GO
 ALTER TABLE [sSurvey].[tMaster] ADD  DEFAULT ((0)) FOR [IsActive]
 GO
@@ -294,6 +346,9 @@ GO
 ALTER TABLE [sSurvey].[tQuestionType] ADD  DEFAULT ((1)) FOR [IsActive]
 GO
 ALTER TABLE [sSurvey].[tQuestionType] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [sSurvey].[tCustomerDetail]  WITH CHECK ADD FOREIGN KEY([AgeGroupId])
+REFERENCES [sSurvey].[tAgeGroupMaster] ([Id])
 GO
 ALTER TABLE [sSurvey].[tCustomerRespondent]  WITH CHECK ADD FOREIGN KEY([MasterId])
 REFERENCES [sSurvey].[tMaster] ([Id])
@@ -333,6 +388,36 @@ REFERENCES [sSurvey].[tMaster] ([Id])
 GO
 ALTER TABLE [sSurvey].[tStartQuestionMap]  WITH CHECK ADD FOREIGN KEY([QuestionId])
 REFERENCES [sSurvey].[tQuestion] ([Id])
+GO
+/****** Object:  StoredProcedure [sSurvey].[spSaveCustomerDetail]    Script Date: 27/07/2024 4:42:51 pm ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [sSurvey].[spSaveCustomerDetail]
+@FirstName NVARCHAR(100),
+@LastName NVARCHAR(100),
+@EmailId NVARCHAR(240),
+@MobileNumber NVARCHAR(15),
+@AadharNumber BIGINT,
+@VoterId NVARCHAR(20),
+@Gender TINYINT,
+@DOB DATE,
+@AgeGroupId SMALLINT,
+@Address NVARCHAR(500),
+@City NVARCHAR(500),
+@State NVARCHAR(500),
+@LocationId NVARCHAR(200)
+AS
+BEGIN
+	INSERT INTO [sSurvey].[tCustomerDetail]
+	(FirstName,LastName,EmailId,MobileNumber,AadharNumber,VoterId,Gender,DOB,AgeGroupId,[Address],City,[State],LocationId)
+
+	VALUES(@FirstName,@LastName,@EmailId,@MobileNumber,@AadharNumber,@VoterId,@Gender,@DOB,@AgeGroupId,@Address,@City,@State,@LocationId)
+
+	SELECT @@IDENTITY
+
+END
 GO
 USE [master]
 GO
